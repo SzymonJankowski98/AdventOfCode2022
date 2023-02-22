@@ -1,7 +1,22 @@
 defmodule Game do
   def play_round(line) do
-    [opponent_shape, your_shape] = line
+    [opponent_shape, expected_result] = line
+    your_shape = your_shape(opponent_shape, expected_result)
     round_result(opponent_shape, your_shape) + score_for_shape(your_shape)
+  end
+
+  defp your_shape(opponent_shape, expected_result) do
+    case [opponent_shape, expected_result] do
+      ["A", "Z"] -> "Y"
+      ["B", "X"] -> "X"
+      ["C", "Y"] -> "Z"
+      ["A", "X"] -> "Z"
+      ["B", "Y"] -> "Y"
+      ["C", "Z"] -> "X"
+      ["A", "Y"] -> "X"
+      ["B", "Z"] -> "Z"
+      ["C", "X"] -> "Y"
+    end
   end
 
   defp round_result(opponent_shape, your_shape) do
